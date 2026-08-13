@@ -30,18 +30,13 @@ if (prefill) {
   
 }
 
-load_amadeus <- function(repo_path) {
-  if (requireNamespace("amadeus", quietly = TRUE)) {
-    return(invisible(TRUE))
+if (!requireNamespace("amadeus", quietly = TRUE)) {
+  if (dir.exists(amadeus_repo) && requireNamespace("pkgload", quietly = TRUE)) {
+    pkgload::load_all(amadeus_repo, quiet = TRUE, export_all = FALSE, helpers = FALSE)
+  } else {
+    stop("Unable to load amadeus. Install the package or install pkgload and provide --amadeus-repo.")
   }
-  if (dir.exists(repo_path) && requireNamespace("pkgload", quietly = TRUE)) {
-    pkgload::load_all(repo_path, quiet = TRUE, export_all = FALSE, helpers = FALSE)
-    return(invisible(TRUE))
-  }
-  stop("Unable to load amadeus. Install the package or install pkgload and provide --amadeus-repo.")
 }
-
-load_amadeus(amadeus_repo)
 
 manifest <- utils::read.csv(manifest_path, stringsAsFactors = FALSE)
 locs <- manifest[, c("site_id", "lon", "lat")]
