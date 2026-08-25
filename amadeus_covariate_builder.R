@@ -2,16 +2,16 @@ prefill <- TRUE
 
 if (prefill) {
  
-  manifest_path <- '/Users/conwaymc/temp/amadeus_output/input/selected_places_centroids.csv'
+  manifest_path <- '/Users/pateldes/Documents/github/geo_nexus/GeoNexus_Amadeus_MVP_Vignette/data/selected_places_centroids.csv'
   dataset_name <- 'gridmet'
   variable_name <- 'tmmx'
-  start_date <- '2022-07-01'
-  end_date <- '2023-07-07'
+  start_date <- '2020-07-01'
+  end_date <- '2021-07-07'
   summary_statistic <- 'mean'
   buffer_radius_m <- '0'
-  raw_dir <- '/Users/conwaymc/temp/amadeus_output/raw'
-  extracted_out <- '/Users/conwaymc/temp/amadeus_output/raw/amadeus_extracted_raw.csv'
-  amadeus_repo <- '/Users/conwaymc/Documents/workspace-nexus/amadeus'
+  raw_dir <- '/Users/pateldes/temp/amadeus_output/raw'
+  extracted_out <- '/Users/pateldes/temp/amadeus_output/raw/amadeus_extracted_raw.csv'
+  amadeus_repo <- '/Users/pateldes/Documents/workspace-nexus/amadeus'
   
   
 } else {
