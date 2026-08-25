@@ -2,7 +2,6 @@ prefill <- TRUE
 
 if (prefill) {
  
-<<<<<<< HEAD
   manifest_path <- '/Users/pateldes/Documents/github/geo_nexus/GeoNexus_Amadeus_MVP_Vignette/data/selected_places_centroids.csv'
   dataset_name <- 'gridmet'
   variable_name <- 'tmmx'
@@ -15,20 +14,6 @@ if (prefill) {
   amadeus_repo <- '/Users/pateldes/Documents/workspace-nexus/amadeus'
   
   
-=======
-  manifest_path <- '/Users/conwaymc/Documents/workspace-nexus/GeoNexus_Amadeus_MVP_Vignette/data/selected_places_centroids.csv'
-  dataset_name <- 'gridmet'
-  variable_name <- 'tmmx'
-  start_date <- '2022-07-01'
-  end_date <- '2022-07-07'
-  summary_statistic <- 'mean'
-  buffer_radius_m <- 0
-  raw_dir <- '/Users/conwaymc/temp/amadeus_output/raw'
-  extracted_out <- '/Users/conwaymc/temp/amadeus_output/raw/amadeus_extracted_raw.csv'
-  amadeus_repo <- '/Users/conwaymc/Documents/workspace-nexus/amadeus'
-
-
->>>>>>> fabf67b18b9655e8114492645ed26b57a3c95b77
 } else {
 
   args <- commandArgs(trailingOnly = TRUE)
