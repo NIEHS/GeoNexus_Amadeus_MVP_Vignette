@@ -65,8 +65,8 @@ def parse_args() -> argparse.Namespace:
         default="tmmx",
         help="Amadeus variable code. MVP default is tmmx.",
     )
-    parser.add_argument("--start-date", default="2022-07-01")
-    parser.add_argument("--end-date", default="2022-07-07")
+    parser.add_argument("--start-date", default="2020-07-01")
+    parser.add_argument("--end-date", default="2021-07-07")
     parser.add_argument(
         "--summary-statistic",
         default="mean",
@@ -80,7 +80,7 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument(
         "--outdir",
-        default="amadeus_covariate_builder_output",
+        default="amadeus_covariate_builder_output_py",
         help="Output bundle directory.",
     )
     parser.add_argument(
@@ -90,7 +90,7 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument(
         "--amadeus-repo",
-        default="../amadeus",
+        default="../amadeus_ods",
         help="Path to a local amadeus checkout for pkgload fallback.",
     )
     parser.add_argument(

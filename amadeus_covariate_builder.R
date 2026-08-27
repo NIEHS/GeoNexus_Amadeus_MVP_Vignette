@@ -1,22 +1,75 @@
-prefill <- TRUE
+# ------------------------------------------------------------
+# Configuration
+#
+# Two supported modes:
+#
+# 1. Interactive development:
+#      source("amadeus_covariate_builder.R")
+#
+# 2. Python / Rscript:
+#      Rscript amadeus_covariate_builder.R <10 args>
+# ------------------------------------------------------------
 
-if (prefill) {
- 
-  manifest_path <- '/Users/pateldes/Documents/github/geo_nexus/GeoNexus_Amadeus_MVP_Vignette/data/selected_places_centroids.csv'
-  dataset_name <- 'gridmet'
-  variable_name <- 'tmmx'
-  start_date <- '2020-07-01'
-  end_date <- '2021-07-07'
-  summary_statistic <- 'mean'
-  buffer_radius_m <- '0'
-  raw_dir <- '/Users/pateldes/temp/amadeus_output/raw'
-  extracted_out <- '/Users/pateldes/temp/amadeus_output/raw/amadeus_extracted_raw.csv'
-  amadeus_repo <- '/Users/pateldes/Documents/workspace-nexus/amadeus'
-  
-  
+args <- commandArgs(trailingOnly = TRUE)
+
+if (length(args) == 0) {
+
+  # ----------------------------------------------------------
+  # Interactive / VS Code debugging mode
+  # ----------------------------------------------------------
+
+  message("Running in interactive development mode")
+
+  manifest_path <- paste0(
+    getwd(),
+    "/data/selected_places_centroids.csv"
+  )
+
+  dataset_name <- "gridmet"
+  variable_name <- "tmmx"
+
+  start_date <- "2020-07-01"
+  end_date <- "2021-07-07"
+
+  summary_statistic <- "mean"
+  buffer_radius_m <- 0
+
+  raw_dir <- file.path(
+    getwd(),
+    "amadeus_covariate_builder_output_R",
+    "raw"
+  )
+
+  dir.create(
+    raw_dir,
+    recursive = TRUE,
+    showWarnings = FALSE
+  )
+
+  extracted_out <- file.path(
+    raw_dir,
+    "amadeus_extracted_raw.csv"
+  )
+
+  amadeus_repo <- normalizePath(
+    "../amadeus_ods"
+  )
+
 } else {
 
-  args <- commandArgs(trailingOnly = TRUE)
+  # ----------------------------------------------------------
+  # Command line / Python mode
+  # ----------------------------------------------------------
+
+  message("Running in command-line mode")
+
+  if (length(args) != 10) {
+    stop(
+      "Expected 10 command-line arguments, received ",
+      length(args)
+    )
+  }
+
   manifest_path <- args[[1]]
   dataset_name <- args[[2]]
   variable_name <- args[[3]]
@@ -27,26 +80,62 @@ if (prefill) {
   raw_dir <- args[[8]]
   extracted_out <- args[[9]]
   amadeus_repo <- args[[10]]
-
 }
 
-if (requireNamespace("amadeus", quietly = TRUE)) {
-  message("Using installed amadeus from: ", find.package("amadeus"))
-} else if (dir.exists(amadeus_repo) && requireNamespace("pkgload", quietly = TRUE)) {
-  pkgload::load_all(amadeus_repo, quiet = TRUE, export_all = FALSE, helpers = FALSE)
-  message("Using local amadeus repo from: ", amadeus_repo)
+# ------------------------------------------------------------
+# Load Amadeus
+# Prefer local development checkout
+# ------------------------------------------------------------
+
+if (
+  dir.exists(amadeus_repo) &&
+    file.exists(file.path(amadeus_repo, "DESCRIPTION"))
+) {
+
+  if (!requireNamespace("pkgload", quietly = TRUE)) {
+    stop("pkgload is required to load local Amadeus source.")
+  }
+
+  pkgload::load_all(
+    amadeus_repo,
+    reset = TRUE,
+    quiet = TRUE,
+    export_all = FALSE,
+    helpers = FALSE
+  )
+
+  message(
+    "Using local amadeus repo from: ",
+    normalizePath(amadeus_repo)
+  )
+
+} else if (requireNamespace("amadeus", quietly = TRUE)) {
+
+  message(
+    "Using installed amadeus from: ",
+    find.package("amadeus")
+  )
+
 } else {
-  stop("Unable to load amadeus. Install the package or install pkgload and provide --amadeus-repo.")
+
+  stop("Unable to load Amadeus.")
 }
+
+
+message("Amadeus namespace path: ",
+  getNamespaceInfo(
+    asNamespace("amadeus"),
+    "path"
+  )
+)
 
 manifest <- utils::read.csv(manifest_path, stringsAsFactors = FALSE)
 locs <- manifest[, c("site_id", "lon", "lat")]
 start_year <- as.integer(substr(start_date, 1, 4))
 end_year <- as.integer(substr(end_date, 1, 4))
+
 if (dataset_name == "gridmet") {
-  years <- c(2018, end_year);
-} else {
-  years <- c(start_year, end_year);
+  years <- c(start_year, end_year)
 }
 
 expected_files <- file.path(
