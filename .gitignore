@@ -225,6 +225,7 @@ __marimo__/
 # Project output directories (generated data)
 amadeus_covariate_builder_output_R/
 amadeus_covariate_builder_output_py/
+test_output/
 tests/test_output/
 tests/data/
 
