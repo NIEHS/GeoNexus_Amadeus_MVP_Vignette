@@ -1,6 +1,0 @@
-countyfips,countyname,stateabbr,lon,lat,diabetes_crudeprev,obesity_crudeprev,csmoking_crudeprev,site_id,geo_level,geoid,state,selection_reason,amadeus_gridmet_tmmx_mean_20220701_20220707
-04001,Apache,AZ,-109.48881915611,35.3954681672691,17.5,35.8,22.4,az_county_04001,county,04001,AZ,cdc_places_selected_geography,302.3
-04003,Cochise,AZ,-109.751384831901,31.8794588523568,13.7,31.2,12.8,az_county_04003,county,04003,AZ,cdc_places_selected_geography,305.628571
-04005,Coconino,AZ,-111.770577149727,35.8387928971913,9.3,23.6,11.5,az_county_04005,county,04005,AZ,cdc_places_selected_geography,301.557143
-04007,Gila,AZ,-110.812096582079,33.7999645115514,15.0,31.4,15.4,az_county_04007,county,04007,AZ,cdc_places_selected_geography,306.057143
-04009,Graham,AZ,-109.887402691851,32.9327553402921,11.4,36.0,15.2,az_county_04009,county,04009,AZ,cdc_places_selected_geography,309.942857
