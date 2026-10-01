@@ -221,7 +221,7 @@ amadeus_covariate_builder_output/
   qa/
     qa_summary.md
   logs/
-    run.log
+    amadeus_run.log
 ```
 
 The `joined/` folder is optional for MVP but should be included if a CDC PLACES wide feature table is provided as an input.
@@ -384,7 +384,7 @@ Minimum fields:
     "metadata/metadata.json",
     "metadata/provenance.json",
     "qa/qa_summary.md",
-    "logs/run.log"
+    "logs/amadeus_run.log"
   ]
 }
 ```

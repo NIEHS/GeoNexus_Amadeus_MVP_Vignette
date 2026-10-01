@@ -1,0 +1,9 @@
+{
+  "input_manifest": "/output/input/selected_places_centroids.csv",
+  "raw_inventory": "/output/raw/amadeus_download_inventory.csv",
+  "covariates_long": "/output/derived/amadeus_covariates_long.csv",
+  "covariates_wide": "/output/derived/amadeus_covariates_wide.csv",
+  "joined_features": "/output/joined/places_amadeus_joined_features.csv",
+  "run_log": "/output/logs/amadeus_run.log",
+  "amadeus_repo": "/opt/amadeus_ods"
+}

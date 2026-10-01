@@ -1,0 +1,6 @@
+site_id,geo_level,geoid,state,lon,lat,selection_reason
+az_county_04001,county,04001,AZ,-109.48881915611,35.3954681672691,cdc_places_selected_geography
+az_county_04003,county,04003,AZ,-109.751384831901,31.8794588523568,cdc_places_selected_geography
+az_county_04005,county,04005,AZ,-111.770577149727,35.8387928971913,cdc_places_selected_geography
+az_county_04007,county,04007,AZ,-110.812096582079,33.7999645115514,cdc_places_selected_geography
+az_county_04009,county,04009,AZ,-109.887402691851,32.9327553402921,cdc_places_selected_geography

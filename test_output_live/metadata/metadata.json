@@ -1,0 +1,14 @@
+{
+  "workflow_name": "amadeus-covariate-builder",
+  "workflow_version": "0.1.0",
+  "generated_at_utc": "2026-09-03T17:08:16.026061+00:00",
+  "input_locations": "/input/az_county_diabetes_live.csv",
+  "covariate_dataset": "gridmet",
+  "covariate_variable": "tmmx",
+  "start_date": "2022-07-01",
+  "end_date": "2022-07-07",
+  "summary_statistic": "mean",
+  "buffer_radius_m": 0,
+  "site_count": 5,
+  "output_prefix": "amadeus_demo"
+}

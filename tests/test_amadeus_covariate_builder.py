@@ -90,7 +90,7 @@ class TestAmadeusCovariateBuilderIntegration(unittest.TestCase):
             log_path = (
                 outdir
                 / "logs"
-                / "run.log"
+                / "amadeus_run.log"
             )
 
             self.assertTrue(manifest_path.exists())
