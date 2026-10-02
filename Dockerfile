@@ -20,17 +20,17 @@ RUN Rscript -e '\
     devtools::install_deps("/opt/amadeus_ods", dependencies=FALSE)'
 
 # ── GeoNexus wrapper ─────────────────────────────────────────────────────────
-COPY amadeus_covariate_builder.py /app/
-COPY amadeus_covariate_builder.R  /app/
-COPY data/                        /app/data/
+COPY amadeus_covariate_builder.py /opt/geonexus/
+COPY amadeus_covariate_builder.R  /opt/geonexus/
+COPY data/                        /opt/geonexus/data/
 
-WORKDIR /app
+WORKDIR /opt/geonexus
 
 # CyVerse DE standard mount points
 RUN mkdir -p /input /output
 
 # amadeus_repo and outdir are baked in; all other args come from the CyVerse form
-ENTRYPOINT ["python3", "/app/amadeus_covariate_builder.py", \
+ENTRYPOINT ["python3", "/opt/geonexus/amadeus_covariate_builder.py", \
             "--amadeus-repo", "/opt/amadeus_ods", \
             "--outdir", "/output"]
 

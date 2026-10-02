@@ -17,6 +17,7 @@ from pathlib import Path
 
 WORKFLOW_NAME = "amadeus-covariate-builder"
 WORKFLOW_VERSION = "0.1.0"
+_SCRIPT_DIR = Path(__file__).resolve().parent
 MANIFEST_FIELDS = [
     "site_id",
     "geo_level",
@@ -37,8 +38,8 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument(
         "--input-locations",
-        default="data/az_county_diabetes_live.csv",
-        help="Input CSV. Defaults to the sample file in this repo.",
+        default=str(_SCRIPT_DIR / "data" / "az_county_diabetes_live.csv"),
+        help="Input CSV. Defaults to the sample file bundled in the image.",
     )
     parser.add_argument(
         "--location-id-column",
@@ -366,7 +367,7 @@ def write_metadata(
         "covariates_long": str(output_dirs["derived"] / "amadeus_covariates_long.csv"),
         "covariates_wide": str(output_dirs["derived"] / "amadeus_covariates_wide.csv"),
         "joined_features": str(output_dirs["joined"] / "places_amadeus_joined_features.csv"),
-        "run_log": str(output_dirs["logs"] / "run.log"),
+        "run_log": str(output_dirs["logs"] / "amadeus_run.log"),
         "amadeus_repo": str(Path(args.amadeus_repo).resolve()),
     }
     (metadata_dir / "metadata.json").write_text(json.dumps(metadata, indent=2), encoding="utf-8")
@@ -395,9 +396,18 @@ def write_qa_summary(
 
 def main() -> int:
     args = parse_args()
-    repo_root = Path(__file__).resolve().parent
-    input_path = (repo_root / args.input_locations).resolve() if not Path(args.input_locations).is_absolute() else Path(args.input_locations)
-    outdir = (repo_root / args.outdir).resolve() if not Path(args.outdir).is_absolute() else Path(args.outdir)
+    # Absolute paths used as-is. Relative paths resolve against cwd so that
+    # CyVerse-staged inputs (placed in the working directory) are found correctly.
+    input_path = (
+        Path(args.input_locations)
+        if Path(args.input_locations).is_absolute()
+        else (Path.cwd() / args.input_locations).resolve()
+    )
+    outdir = (
+        Path(args.outdir)
+        if Path(args.outdir).is_absolute()
+        else (Path.cwd() / args.outdir).resolve()
+    )
 
     if not input_path.exists():
         raise FileNotFoundError(f"Input CSV not found: {input_path}")
@@ -416,7 +426,7 @@ def main() -> int:
     shutil.copy2(input_path, output_dirs["input"] / input_path.name)
 
     extracted_path = output_dirs["raw"] / "amadeus_extracted_raw.csv"
-    log_path = output_dirs["logs"] / "run.log"
+    log_path = output_dirs["logs"] / "amadeus_run.log"
 
     if args.dry_run:
         log_path.write_text("Dry run: R workflow was not executed.\n", encoding="utf-8")

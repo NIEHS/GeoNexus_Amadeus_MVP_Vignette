@@ -228,8 +228,12 @@ amadeus_covariate_builder_output_py/
 test_output/
 tests/test_output/
 tests/data/
+gridmet_demo/
+test_output_live/
+
 
 # Large binary data files
 *.nc
 
 .DS_Store
+.claude/

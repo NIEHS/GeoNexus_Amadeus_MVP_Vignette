@@ -689,7 +689,7 @@ AMADEUS_REPO=/absolute/path/to/amadeus_ods RUN_AMADEUS_INTEGRATION=1 python3 -m 
 Inspect:
 
 ```text
-<test output>/amadeus_output/logs/run.log
+<test output>/amadeus_output/logs/amadeus_run.log
 ```
 
 The log should contain a message similar to:

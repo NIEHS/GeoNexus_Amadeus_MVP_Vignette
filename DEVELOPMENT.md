@@ -570,7 +570,7 @@ amadeus_covariate_builder_output/
 │   └── qa_summary.md
 │
 └── logs/
-    └── run.log
+    └── amadeus_run.log
 ```
 
 The R wrapper produces the raw Amadeus extraction.
